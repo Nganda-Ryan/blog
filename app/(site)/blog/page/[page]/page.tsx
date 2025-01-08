@@ -1,15 +1,23 @@
 import ListLayout from '@/layouts/ListLayoutWithTags'
 import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
 import { allBlogs } from 'contentlayer/generated'
-import { genPageMetadata } from 'app/seo'
+import { getPostsWithCount } from './../../../../../sanity/sanity-utils'
 
 const POSTS_PER_PAGE = 5
 
-export const metadata = genPageMetadata({ title: 'Blog' })
+export const generateStaticParams = async () => {
+  const totalPages = Math.ceil(allBlogs.length / POSTS_PER_PAGE)
+  const paths = Array.from({ length: totalPages }, (_, i) => ({ page: (i + 1).toString() }))
 
-export default function BlogPage() {
+  return paths
+}
+
+export default async function Page(props: { params: Promise<{ page: string }> }) {
+  const params = await props.params
   const posts = allCoreContent(sortPosts(allBlogs))
-  const pageNumber = 1
+  const pageNumber = parseInt(params.page as string)
+  const sanityPosts = await getPostsWithCount(pageNumber, 5);
+  console.log("sanityPosts - " + " " + pageNumber + " : ", sanityPosts)
   const initialDisplayPosts = posts.slice(
     POSTS_PER_PAGE * (pageNumber - 1),
     POSTS_PER_PAGE * pageNumber
