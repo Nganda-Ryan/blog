@@ -29,6 +29,9 @@ module.exports = {
         primary: colors.indigo,
         gray: colors.gray,
       },
+      width: {
+        '140': '35rem', // 35rem = 560px
+      },
       zIndex: {
         60: '60',
         70: '70',
@@ -48,11 +51,21 @@ module.exports = {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
             },
+            h1: {
+              fontSize: theme('fontSize.3xl')
+            },
             h3: {
               fontWeight: '600',
             },
             code: {
               color: theme('colors.indigo.500'),
+            },
+          },
+        },
+        xl: {
+          css: {
+            h1: {
+              fontSize: theme('fontSize.4xl'),
             },
           },
         },

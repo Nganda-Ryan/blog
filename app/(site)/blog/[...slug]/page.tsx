@@ -7,7 +7,7 @@ import PostBanner from '@/layouts/PostBanner'
 import { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
 import { notFound } from 'next/navigation'
-import { getPost, urlFor, getPostsWithCount } from './../../../../sanity/sanity-utils'
+import { getPost, urlFor, getPostsWithCount, getAllPosts } from './../../../../sanity/sanity-utils'
 import { PortableText } from '@portabletext/react'
 import PortableTextComponents from '@/components/sanity/PortableTextComponents'
 
@@ -22,14 +22,14 @@ export async function generateMetadata(props: {
 }): Promise<Metadata | undefined> {
   const params = await props.params
   const slug = decodeURI(params.slug.join('/'))
-  // const posts = allBlogs.find((p) => p.slug === slug)
   const posts = await getPost(slug);
-  const authorList = posts?.post?.author?.name ? [posts.post.author.name] : ['default'];
-
   
   if (!posts) {
     return
   }
+
+  
+  const authorList = posts?.post?.author?.name ? [posts.post.author.name] : ['default'];
 
   const publishedAt = new Date(posts.post?.publishedAt!).toISOString()
   const modifiedAt = new Date(posts?.post?._updatedAt!).toISOString()
@@ -63,8 +63,14 @@ export async function generateMetadata(props: {
 }
 
 export const generateStaticParams = async () => {
-  const sanityPosts = await getPostsWithCount();
-  return sanityPosts.posts.map((p) => ({ slug: p.slug?.current!.split('/').map((name) => decodeURI(name)) }))
+  const sanityPosts = await getAllPosts();
+  if(sanityPosts.length === 0) {
+    console.log('empty array')
+    return []
+  }
+  let slugList = sanityPosts.map((p) => ({ slug: p.slug?.current!}))
+  console.log("@@", slugList[0])
+  return slugList;
 }
 
 export default async function Page(props: { params: Promise<{ slug: string[] }> }) {
@@ -92,22 +98,16 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
     tags: sanityPost.post.tags ? sanityPost.post.tags : undefined
   }
 
-
-  console.log("sanityPost", sanityPost);
-  
   const authorList = sanityPost?.post?.author ? [sanityPost.post.author] : undefined;
   
 
   return (
     <>
-      {/* <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      /> */}
       <PostLayout content={mainContent} authorDetails={authorList} next={next} prev={prev}>
         
-        <PortableText value={sanityPost.post?.body!} components={PortableTextComponents} />
-        {/* <MDXLayoutRenderer code={posts.body.code} components={components} toc={posts.toc} /> */}
+        <div className='prose prose-blue dark:prose-invert'>
+          <PortableText value={sanityPost.post?.body!} components={PortableTextComponents} />
+        </div>
       </PostLayout>
     </>
   )

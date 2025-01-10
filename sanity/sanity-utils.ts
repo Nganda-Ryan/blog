@@ -16,11 +16,12 @@ const builder = imageUrlBuilder(client)
 export async function getPost(slug: string): Promise<{ post: Post | null; prevPost: Post | null; nextPost: Post | null }> {
     const query = groq`
         {
-            "post": *[_type == "post" && slug.current == $slug][0] {
+            "post": *[_type == "post" && slug.current == "my-fancy-title"][0] {
                 title,
                 slug,
                 "author": author->{
                     name,
+                    image,
                     linkedin,
                     github,
                     mail,
@@ -38,12 +39,12 @@ export async function getPost(slug: string): Promise<{ post: Post | null; prevPo
                 body,
                 _updatedAt
             },
-            "prevPost": *[_type == "post" && publishedAt < ^.post.publishedAt] | order(publishedAt desc)[0] {
+            "prevPost": *[_type == "post" && publishedAt < *[_type == "post" && slug.current == "my-fancy-title"][0].publishedAt] | order(publishedAt desc)[0] {
                 title,
                 slug,
                 publishedAt
             },
-            "nextPost": *[_type == "post" && publishedAt > ^.post.publishedAt] | order(publishedAt asc)[0] {
+            "nextPost": *[_type == "post" && publishedAt > *[_type == "post" && slug.current == "my-fancy-title"][0].publishedAt] | order(publishedAt asc)[0] {
                 title,
                 slug,
                 publishedAt
@@ -100,6 +101,30 @@ export async function getPostsWithCount(page = 0, limit = 5): Promise<{ posts: P
         total: result.total
     };
 }
+
+export async function getAllPosts(): Promise<Post[]> {
+    const query = groq`
+        *[_type == "post"] | order(publishedAt desc) {
+            title,
+            slug,
+            "mainImage": {
+                "url": mainImage.asset->url,
+                alt
+            },
+            tags[]->{
+                _id,
+                title,
+                slug
+            },
+            publishedAt,
+            description
+        }
+    `;
+
+    const posts = await client.fetch(query);
+    return posts;
+}
+
 
 
 export function urlFor(source: any) {
