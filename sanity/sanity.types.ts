@@ -109,6 +109,7 @@ export type Tag = {
   title?: string
   slug?: Slug
   description?: string
+  postCount?: number
 }
 
 export type Post = {

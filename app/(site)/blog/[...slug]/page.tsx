@@ -65,18 +65,15 @@ export async function generateMetadata(props: {
 export const generateStaticParams = async () => {
   const sanityPosts = await getAllPosts();
   if(sanityPosts.length === 0) {
-    console.log('empty array')
     return []
   }
-  let slugList = sanityPosts.map((p) => ({ slug: p.slug?.current!}))
-  console.log("@@", slugList[0])
+  let slugList = sanityPosts.map((p) => ({ slug: p.slug?.current!.split('/').map((name) => decodeURI(name))}))
   return slugList;
 }
 
 export default async function Page(props: { params: Promise<{ slug: string[] }> }) {
   const params = await props.params
   const slug = decodeURI(params.slug.join('/'));
-  console.log('@@@slug', slug);
   const sanityPost = await getPost(slug);
   if (!sanityPost.post) {
     return notFound()
@@ -105,7 +102,11 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
     <>
       <PostLayout content={mainContent} authorDetails={authorList} next={next} prev={prev}>
         
-        <div className='prose prose-blue dark:prose-invert'>
+        <div className='prose pr dark:prose-invert w-full max-w-full mx-auto text-white'>
+          <div>
+            { sanityPost.post?.description! }
+          </div>
+          <br />
           <PortableText value={sanityPost.post?.body!} components={PortableTextComponents} />
         </div>
       </PostLayout>

@@ -11,6 +11,7 @@ const VideoEmbed = ({ value }: { value: { url: string } }) => {
       height="315"
       className='w-full max-w-xl mx-auto'
       src={value.url}
+      loading="lazy"
       title="YouTube video player"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowFullScreen

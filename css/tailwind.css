@@ -58,3 +58,17 @@ input:-webkit-autofill:focus {
   display: inline-block;
   vertical-align: middle;
 }
+
+.syntax-highlighter {
+  font-size: 16px; /* Taille par défaut */
+
+  /* Media query pour les écrans plus petits */
+  @media (max-width: 768px) {
+    font-size: 12px; /* Réduire la taille de la police sur mobile */
+  }
+
+  /* Media query pour les écrans plus grands */
+  @media (min-width: 1200px) {
+    font-size: 18px; /* Augmenter la taille de la police sur grands écrans */
+  }
+}

@@ -103,7 +103,9 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             </dl>
             
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-              <div className="prose max-w-none pb-8 pt-10 dark:prose-invert">{children}</div>
+              <div className="pb-8 pt-5">
+                {children}
+              </div>
               <div className="pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">
                 {
                   (authorDetails && authorDetails[0].x) && (
@@ -158,7 +160,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                         Previous Article
                       </h2>
                       <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                        <Link href={`/${prev.path}`}>{prev.title}</Link>
+                        <Link href={`/blog/${prev.path}`}>{prev.title}</Link>
                       </div>
                     </div>
                   )}

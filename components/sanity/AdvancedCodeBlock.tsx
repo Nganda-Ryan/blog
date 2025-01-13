@@ -19,7 +19,7 @@ export const AdvancedCodeBlock = ({
         wrapLines={true}      // Permet de gérer les longues lignes
         customStyle={{
           padding: '1rem',
-          fontSize: '1rem',
+          fontSize: '0.85rem',
           lineHeight: '1.5',
         }}
       >

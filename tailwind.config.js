@@ -47,6 +47,7 @@ module.exports = {
               },
               code: { color: theme('colors.primary.400') },
             },
+            color: 'red',
             'h1,h2': {
               fontWeight: '700',
               letterSpacing: theme('letterSpacing.tight'),
@@ -60,6 +61,8 @@ module.exports = {
             code: {
               color: theme('colors.indigo.500'),
             },
+            maxWidth: '100%', // Applique une largeur par défaut
+            margin: '0', // Ajuste les marges
           },
         },
         xl: {

@@ -17,16 +17,19 @@ interface PaginationProps {
   currentPage: number
 }
 interface ListLayoutProps {
-  posts: CoreContent<Blog>[]
+  posts?: CoreContent<Blog>[]
   title: string
   initialDisplayPosts?: CoreContent<Blog>[]
   pagination?: PaginationProps
-  sanityPosts?: Post []
+  sanityPosts?: Post [],
+  tags?: boolean
 }
 
 function Pagination({ totalPages, currentPage }: PaginationProps) {
   const pathname = usePathname()
+  console.log('pathname', pathname.split('/'))
   const basePath = pathname.split('/')[1]
+  console.log('nextPage', `/${basePath}/page/${currentPage + 1}`)
   const prevPage = currentPage - 1 > 0
   const nextPage = currentPage + 1 <= totalPages
 
@@ -75,8 +78,7 @@ export default function ListLayoutWithTags({
   const tagCounts = tagData as Record<string, number>
   const tagKeys = Object.keys(tagCounts)
   const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
-  console.log('sanityPosts', sanityPosts)
-
+  console.log("pagination", pagination)
   const displayPosts = initialDisplayPosts.length > 0 ? initialDisplayPosts : posts
 
   return (
@@ -88,7 +90,6 @@ export default function ListLayoutWithTags({
           </h1>
         </div>
         <div className="flex sm:space-x-24">
-          
           <div>
             <ul>
               {sanityPosts && sanityPosts.map((post, index) => {
@@ -115,7 +116,7 @@ export default function ListLayoutWithTags({
                             {tags?.map((tag, index2) => <Tag key={index2} text={tag.title!} />)}
                           </div>
                         </div>
-                        <div className="prose max-w-none text-gray-500 dark:text-gray-400">
+                        <div className="prose max-w-none text-gray-500 dark:text-gray-300 line-clamp-4">
                           {description}
                         </div>
                       </div>
