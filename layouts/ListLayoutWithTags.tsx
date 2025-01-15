@@ -57,7 +57,7 @@ export default async function ListLayoutWithTags({
                       <div className="space-y-3">
                         <div>
                           <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                            <Link href={`/blog/${slug?.current}`} className="dark:hover:text-indigo-300">
+                            <Link href={`/blog/${slug?.current}`}>
                                 {title}
                             </Link>
                           </h2>

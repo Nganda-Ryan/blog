@@ -1,7 +1,7 @@
 import { createClient, groq } from 'next-sanity';
 import {apiVersion, dataset, projectId} from './env'
 import imageUrlBuilder from '@sanity/image-url'
-import { Post, Tag } from './sanity.types';
+import { Post, Tag, Author } from './sanity.types';
 
 
 
@@ -352,6 +352,29 @@ export async function getTags(): Promise<Tag[]> {
     return tags;
 }
 
+
+export async function getAuthorList(): Promise<Author[]> {
+    const query = groq`
+        *[_type == "author"]{
+            _id,
+            name,
+            slug,
+            linkedin,
+            github,
+            mail,
+            image{
+                asset->{
+                _id,
+                url
+                }
+            },
+            bio
+        }
+
+    `;
+    const tags = await client.fetch(query);
+    return tags;
+}
 
 export function urlFor(source: any) {
     return builder.image(source)

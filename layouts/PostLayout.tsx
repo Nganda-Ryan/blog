@@ -10,9 +10,6 @@ import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import { Author, Tag as TagType } from 'sanity/sanity.types'
 import { urlFor } from './../sanity/sanity-utils';
 
-const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
-const discussUrl = (path) =>
-  `https://mobile.twitter.com/search?q=${encodeURIComponent(`${siteMetadata.siteUrl}/${path}`)}`
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
   weekday: 'long',

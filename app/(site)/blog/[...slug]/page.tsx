@@ -95,7 +95,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
     <>
       <PostLayout content={mainContent} authorDetails={authorList} next={next} prev={prev}>
         
-        <div className='prose w-full max-w-full mx-auto text-slate-900 dark:text-slate-50'>
+        <div className='prose dark:prose-invert w-full max-w-full mx-auto text-slate-900 dark:text-slate-50'>
           <div>
             { sanityPost.post?.description! }
           </div>

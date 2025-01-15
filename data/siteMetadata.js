@@ -1,18 +1,21 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'The gear of code',
+  title: 'The gears of code',
   author: 'NGANDA Steve',
   headerTitle: 'GEAR OF CODE',
-  description: 'A blog created with Next.js and Tailwind.css',
+  description: `
+    Explore tutorials, tips, and updates on web development, covering the most popular frontend frameworks like React, Vue.js, and 
+    Next.js, along with backend technologies like Node.js, Spring Boot, and more.
+  `,
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://gearofcode.com',
-  siteRepo: 'https://github.com/Nganda-Ryan',
+  siteUrl: 'https://thecodersguilde.com',
+  siteRepo: 'https://github.com/Nganda-Ryan/blog',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo-git-avatar.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
-  email: 'steveloicnganda@gearofcode.com',
+  email: 'steveloicnganda@gmail.com',
   github: 'https://github.com',
-  x: 'https://twitter.com/x',
+  x: 'https://x.com/',
   facebook: 'https://facebook.com',
   youtube: 'https://youtube.com',
   linkedin: 'https://www.linkedin.com',
@@ -22,7 +25,7 @@ const siteMetadata = {
   bluesky: 'https://bsky.app/',
   locale: 'en-US',
   // set to true if you want a navbar fixed to the top
-  stickyNav: false,
+  stickyNav: true,
   analytics: {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.
@@ -65,20 +68,6 @@ const siteMetadata = {
       themeURL: '',
       lang: 'en',
     },
-  },
-  search: {
-    provider: 'kbar', // kbar or algolia
-    kbarConfig: {
-      searchDocumentsPath: `${process.env.BASE_PATH || ''}/search.json`, // path to load documents to search
-    },
-    // provider: 'algolia',
-    // algoliaConfig: {
-    //   // The application ID provided by Algolia
-    //   appId: 'R2IYF7ETH7',
-    //   // Public API key: it is safe to commit it
-    //   apiKey: '599cec31baffa4868cae4e79f180729b',
-    //   indexName: 'docsearch',
-    // },
   },
 }
 
