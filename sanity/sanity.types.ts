@@ -126,6 +126,7 @@ export type Post = {
   tags?: Array<Tag>
   publishedAt?: string
   body?: BlockContent
+  draft?: boolean
 }
 
 export type Author = {

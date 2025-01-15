@@ -1,85 +1,34 @@
 /* eslint-disable prettier/prettier */
-'use client'
-
-import { usePathname } from 'next/navigation'
-import { slug } from 'github-slugger'
 import { formatDate } from 'pliny/utils/formatDate'
-import { CoreContent } from 'pliny/utils/contentlayer'
-import type { Blog } from 'contentlayer/generated'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
-import tagData from 'app/tag-data.json'
+import { getTags } from './../sanity/sanity-utils'
 import { Post } from 'sanity/sanity.types'
+import Pagination from '@/components/Pagination'
+import Strip, { StripBgColor } from '@/components/Strip'
 
 interface PaginationProps {
   totalPages: number
   currentPage: number
 }
 interface ListLayoutProps {
-  posts?: CoreContent<Blog>[]
   title: string
-  initialDisplayPosts?: CoreContent<Blog>[]
   pagination?: PaginationProps
   sanityPosts?: Post [],
   tags?: boolean
 }
 
-function Pagination({ totalPages, currentPage }: PaginationProps) {
-  const pathname = usePathname()
-  console.log('pathname', pathname.split('/'))
-  const basePath = pathname.split('/')[1]
-  console.log('nextPage', `/${basePath}/page/${currentPage + 1}`)
-  const prevPage = currentPage - 1 > 0
-  const nextPage = currentPage + 1 <= totalPages
 
-  return (
-    <div className="space-y-2 pb-8 pt-6 md:space-y-5 max-w-96 mx-auto">
-      <nav className="flex justify-between">
-        {!prevPage && (
-          <button className="cursor-auto disabled:opacity-50" disabled={!prevPage}>
-            Previous
-          </button>
-        )}
-        {prevPage && (
-          <Link
-            href={currentPage - 1 === 1 ? `/${basePath}/` : `/${basePath}/page/${currentPage - 1}`}
-            rel="prev"
-          >
-            Previous
-          </Link>
-        )}
-        <span>
-          {currentPage} of {totalPages}
-        </span>
-        {!nextPage && (
-          <button className="cursor-auto disabled:opacity-50" disabled={!nextPage}>
-            Next
-          </button>
-        )}
-        {nextPage && (
-          <Link href={`/${basePath}/page/${currentPage + 1}`} rel="next">
-            Next
-          </Link>
-        )}
-      </nav>
-    </div>
-  )
-}
 
-export default function ListLayoutWithTags({
-  posts,
+export default async function ListLayoutWithTags({
   title,
-  initialDisplayPosts = [],
   pagination,
   sanityPosts
 }: ListLayoutProps) {
-  const pathname = usePathname()
-  const tagCounts = tagData as Record<string, number>
-  const tagKeys = Object.keys(tagCounts)
-  const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
+  const tagList = await getTags();
+  const tagCounts = tagList.reduce((sum, tag) => sum + tag.postCount!, 0);
   console.log("pagination", pagination)
-  const displayPosts = initialDisplayPosts.length > 0 ? initialDisplayPosts : posts
 
   return (
     <>
@@ -108,12 +57,12 @@ export default function ListLayoutWithTags({
                       <div className="space-y-3">
                         <div>
                           <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                            <Link href={`/blog/${slug?.current}`} className="text-gray-900 dark:text-gray-100">
-                              {title}
+                            <Link href={`/blog/${slug?.current}`} className="dark:hover:text-indigo-300">
+                                {title}
                             </Link>
                           </h2>
                           <div className="flex flex-wrap">
-                            {tags?.map((tag, index2) => <Tag key={index2} text={tag.title!} />)}
+                            {tags?.map((tag, index2) => <Tag key={index2} text={tag.slug?.current!} />)}
                           </div>
                         </div>
                         <div className="prose max-w-none text-gray-500 dark:text-gray-300 line-clamp-4">

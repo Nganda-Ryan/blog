@@ -1,22 +1,15 @@
 import 'css/prism.css'
 import 'katex/dist/katex.css'
 
-import PostSimple from '@/layouts/PostSimple'
 import PostLayout from '@/layouts/PostLayout'
-import PostBanner from '@/layouts/PostBanner'
 import { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
 import { notFound } from 'next/navigation'
-import { getPost, urlFor, getPostsWithCount, getAllPosts } from './../../../../sanity/sanity-utils'
+import { getPost, urlFor, getAllPosts } from './../../../../sanity/sanity-utils'
 import { PortableText } from '@portabletext/react'
 import PortableTextComponents from '@/components/sanity/PortableTextComponents'
 
-interface LayoutContent {
-  slug: string;
-  date: string;
-  title: string; 
-  tags: string[] | undefined;
-}
+
 export async function generateMetadata(props: {
   params: Promise<{ slug: string[] }>
 }): Promise<Metadata | undefined> {
@@ -102,7 +95,7 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
     <>
       <PostLayout content={mainContent} authorDetails={authorList} next={next} prev={prev}>
         
-        <div className='prose pr dark:prose-invert w-full max-w-full mx-auto text-white'>
+        <div className='prose w-full max-w-full mx-auto text-slate-900 dark:text-slate-50'>
           <div>
             { sanityPost.post?.description! }
           </div>

@@ -1,57 +1,50 @@
-import { slug } from 'github-slugger'
-import { allCoreContent, sortPosts } from 'pliny/utils/contentlayer'
-import siteMetadata from '@/data/siteMetadata'
 import ListLayout from '@/layouts/ListLayoutWithTags'
-import { allBlogs } from 'contentlayer/generated'
-import tagData from 'app/tag-data.json'
-// import { genPageMetadata } from 'app/seo'
-import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { getTags, getPostsByTagSlug } from './../../../../../../sanity/sanity-utils'
+import { config } from 'utils/config'
 
-const POSTS_PER_PAGE = 5
-
-// export async function generateMetadata(props: {
-//   params: Promise<{ tag: string }>
-// }): Promise<Metadata> {
-//   const params = await props.params
-//   const tag = decodeURI(params.tag)
-//   return genPageMetadata({
-//     title: tag,
-//     description: `${siteMetadata.title} ${tag} tagged content`,
-//     alternates: {
-//       canonical: './',
-//       types: {
-//         'application/rss+xml': `${siteMetadata.siteUrl}/tags/${tag}/feed.xml`,
-//       },
-//     },
-//   })
-// }
 
 export const generateStaticParams = async () => {
-  const tagCounts = tagData as Record<string, number>
-  const tagKeys = Object.keys(tagCounts)
-  return tagKeys.map((tag) => ({
-    tag: encodeURI(tag),
-  }))
+  const tagList = await getTags();
+  const tagCounts = tagList.reduce((acc, tag) => {
+    if (tag.slug && tag.slug.current) {
+        acc[tag.slug.current] = tag.postCount!;
+    }
+    return acc;
+  }, {} as Record<string, number>);
+
+  
+  return Object.keys(tagCounts).flatMap((tag) => {
+    const postCount = tagCounts[tag]
+    const totalPages = Math.ceil(postCount / config.POSTS_PER_PAGE)
+    return Array.from({ length: totalPages - 1 }, (_, i) => ({
+      tag: encodeURI(tag),
+      page: (i + 2).toString(),
+    }))
+  })
 }
 
-export default async function TagPage(props: { params: Promise<{ tag: string }> }) {
+export default async function TagPage(props: { params: Promise<{ tag: string; page: string }> }) {
   const params = await props.params
   const tag = decodeURI(params.tag)
+  const pageNumber = parseInt(params.page);
+  const postList = await getPostsByTagSlug(tag, config.POSTS_PER_PAGE, pageNumber);
   const title = tag[0].toUpperCase() + tag.split(' ').join('-').slice(1)
-  const filteredPosts = allCoreContent(
-    sortPosts(allBlogs.filter((post) => post.tags && post.tags.map((t) => slug(t)).includes(tag)))
-  )
-  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE)
-  const initialDisplayPosts = filteredPosts.slice(0, POSTS_PER_PAGE)
+
+  const totalPages = Math.ceil(postList.total / config.POSTS_PER_PAGE)
+
+  // Return 404 for invalid page numbers or empty pages
+  if (pageNumber <= 0 || pageNumber > totalPages || isNaN(pageNumber)) {
+    return notFound()
+  }
   const pagination = {
-    currentPage: 1,
+    currentPage: pageNumber,
     totalPages: totalPages,
   }
 
   return (
     <ListLayout
-      posts={filteredPosts}
-      initialDisplayPosts={initialDisplayPosts}
+      sanityPosts={postList.posts}
       pagination={pagination}
       title={title}
     />

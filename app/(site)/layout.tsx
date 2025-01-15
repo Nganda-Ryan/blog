@@ -59,9 +59,15 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  //searchDocumentsPath: `./search.json`,
   const basePath = process.env.BASE_PATH || ''
-
-  return (
+  const config : SearchConfig = {
+    kbarConfig: {
+      searchDocumentsPath: `/api`, // path to load documents to search
+    },
+    provider: 'kbar'
+  }
+  return (  
     <html
       lang={siteMetadata.language}
       className={`${space_grotesk.variable} scroll-smooth`}
@@ -98,7 +104,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProviders>
           <Analytics analyticsConfig={siteMetadata.analytics as AnalyticsConfig} />
           <SectionContainer>
-            <SearchProvider searchConfig={siteMetadata.search as SearchConfig}>
+            <SearchProvider searchConfig={config as SearchConfig}>
               <Header />
               <main className="mb-auto">{children}</main>
             </SearchProvider>

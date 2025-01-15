@@ -8,7 +8,6 @@ export const metadata = genPageMetadata({ title: 'Tags', description: 'Things I 
 
 export default async function Page() {
   const tagList = await getTags();
-  console.log('tagList', tagList)
   return (
     <>
       <div className="flex flex-col items-start justify-start divide-y divide-gray-200 dark:divide-gray-700 md:mt-24 md:flex-row md:items-center md:justify-center md:space-x-6 md:divide-y-0">
@@ -20,19 +19,20 @@ export default async function Page() {
         <div className="flex max-w-lg flex-wrap">
           {!tagList && 'No tags found.'}
           {tagList && tagList.map((t, index) => {
-            return (
-              <div key={index} className="mb-2 mr-5 mt-2">
-                <Tag text={t.slug?.current!} />
-                <Link
-                  // href={`/tags/${slug(t)}`}
-                  href={`/tags/${t.slug?.current}`}
-                  className="-ml-2 text-sm font-semibold uppercase text-gray-600 dark:text-gray-300"
-                  aria-label={`View posts tagged ${t.slug?.current}`}
-                >
-                  {` (${t.postCount!})`}
-                </Link>
-              </div>
-            )
+            if(t.postCount! > 0) {
+              return (
+                <div key={index} className="mb-2 mr-5 mt-2">
+                  <Tag text={t.slug?.current!} />
+                  <Link
+                    href={`/tags/${t.slug?.current}`}
+                    className="-ml-2 text-sm font-semibold uppercase text-gray-600 dark:text-gray-300"
+                    aria-label={`View posts tagged ${t.slug?.current}`}
+                  >
+                    {` (${t.postCount!})`}
+                  </Link>
+                </div>
+              )
+            }
           })}
         </div>
       </div>

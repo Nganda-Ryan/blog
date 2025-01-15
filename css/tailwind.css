@@ -71,4 +71,10 @@ input:-webkit-autofill:focus {
   @media (min-width: 1200px) {
     font-size: 18px; /* Augmenter la taille de la police sur grands écrans */
   }
+
+  .ryan {
+    color: red;
+    margin-top: 50px;
+  }
+  
 }

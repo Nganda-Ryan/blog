@@ -3,9 +3,9 @@ import path from 'path'
 import { slug } from 'github-slugger'
 import { escape } from 'pliny/utils/htmlEscaper.js'
 import siteMetadata from '../data/siteMetadata.js'
-import tagData from '../app/tag-data.json' assert { type: 'json' }
-import { allBlogs } from '../.contentlayer/generated/index.mjs'
+// import { allBlogs } from '../.contentlayer/generated/index.mjs'
 import { sortPosts } from 'pliny/utils/contentlayer.js'
+import { getTags } from './../sanity/sanity-utils.js'
 
 const outputFolder = process.env.EXPORT ? 'out' : 'public'
 
@@ -38,6 +38,13 @@ const generateRss = (config, posts, page = 'feed.xml') => `
 `
 
 async function generateRSS(config, allBlogs, page = 'feed.xml') {
+  const tagList = await getTags();
+  const tagData = tagList.reduce((acc, tag) => {
+    if (tag.slug && tag.slug.current) {
+        acc[tag.slug.current] = tag.postCount;
+    }
+    return acc;
+  }, {});
   const publishPosts = allBlogs.filter((post) => post.draft !== true)
   // RSS for blog post
   if (publishPosts.length > 0) {
