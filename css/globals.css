@@ -1,0 +1,23 @@
+.stript {
+  position: relative;
+}
+
+.stript::after {
+  content: '';
+  position: absolute;
+  background-color: #ff3c78;
+  height: 0.5rem;
+  z-index: -1000;
+  width: 0%;
+  left: 0;
+  bottom: 4px;
+  transition: all 0.25s ease;
+}
+
+.stript:hover::after {
+  width: 100%;
+}
+
+/* .stript:hover {
+  color: rgb(255, 158, 158);
+} */
