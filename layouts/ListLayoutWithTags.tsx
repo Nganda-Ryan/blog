@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { formatDate } from 'pliny/utils/formatDate'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
