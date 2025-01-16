@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import { formatDate } from 'pliny/utils/formatDate'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'

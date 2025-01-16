@@ -24,9 +24,10 @@ export async function generateMetadata(props: {
   
   const authorList = posts?.post?.author?.name ? [posts.post.author.name] : ['default'];
 
-  const publishedAt = new Date(posts.post?.publishedAt!).toISOString()
-  const modifiedAt = new Date(posts?.post?._updatedAt!).toISOString()
-  let bannerImg = posts.post?.mainImage ? [urlFor(posts.post.mainImage.url).url()] : [siteMetadata.socialBanner];
+  // const publishedAt = posts.post?.publishedAt ? new Date(posts.post.publishedAt).toISOString() : null; // ou une valeur par défaut
+  const publishedAt = new Date(posts.post?.publishedAt ?? "").toISOString();
+  const modifiedAt = posts?.post?._updatedAt ? new Date(posts.post._updatedAt).toISOString() : undefined; // ou une valeur par défaut
+  const bannerImg = posts.post?.mainImage ? [urlFor(posts.post.mainImage.url).url()] : [siteMetadata.socialBanner];
   
   //openGraph
   const ogImages = bannerImg.map((img) => ({url: img}))
@@ -60,7 +61,7 @@ export const generateStaticParams = async () => {
   if(sanityPosts.length === 0) {
     return []
   }
-  let slugList = sanityPosts.map((p) => ({ slug: p.slug?.current!.split('/').map((name) => decodeURI(name))}))
+  const slugList = sanityPosts.map((p) => ({ slug: p.slug?.current!.split('/').map((name) => decodeURI(name))}))
   return slugList;
 }
 
@@ -80,9 +81,9 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
     path: sanityPost?.nextPost?.slug?.current,
     title: sanityPost?.nextPost?.title
   };
-  
+  const _slug = sanityPost.post.slug?.current ?? "default-slug";
   const mainContent = {
-    slug: sanityPost.post.slug?.current!,
+    slug: _slug,
     date: sanityPost.post.publishedAt!,
     title: sanityPost.post.title!,
     tags: sanityPost.post.tags ? sanityPost.post.tags : undefined
@@ -97,10 +98,10 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
         
         <div className='prose dark:prose-invert w-full max-w-full mx-auto text-slate-900 dark:text-slate-50'>
           <div>
-            { sanityPost.post?.description! }
+            {sanityPost.post?.description ?? "No description available"}
           </div>
           <br />
-          <PortableText value={sanityPost.post?.body!} components={PortableTextComponents} />
+          <PortableText value={sanityPost.post?.body ?? []} components={PortableTextComponents}/>
         </div>
       </PostLayout>
     </>

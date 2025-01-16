@@ -22,7 +22,7 @@ export default async function Page() {
             if(t.postCount! > 0) {
               return (
                 <div key={index} className="mb-2 mr-5 mt-2">
-                  <Tag text={t.slug?.current!} />
+                  <Tag text={t.slug?.current ?? "default-slug"} />
                   <Link
                     href={`/tags/${t.slug?.current}`}
                     className="-ml-2 text-sm font-semibold uppercase text-gray-600 dark:text-gray-300"

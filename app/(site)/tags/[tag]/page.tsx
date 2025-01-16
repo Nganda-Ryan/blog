@@ -27,7 +27,7 @@ export async function generateMetadata(props: {
 export const generateStaticParams = async () => {
   const tagList = await getTags();
   const paths = tagList.map((tag) => ({
-    tag: encodeURI(tag.slug?.current!),
+    tag: encodeURI(tag.slug?.current ? tag.slug?.current : "default-slug"),
   }))
   return paths
 }

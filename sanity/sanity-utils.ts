@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createClient, groq } from 'next-sanity';
 import {apiVersion, dataset, projectId} from './env'
 import imageUrlBuilder from '@sanity/image-url'
