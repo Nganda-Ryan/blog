@@ -1,15 +1,15 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'The gears of code',
+  title: 'La guilde des codeurs',
   author: 'NGANDA Steve',
-  headerTitle: 'GEAR OF CODE',
+  headerTitle: 'GuiDeCo',
   description: `
     Explore tutorials, tips, and updates on web development, covering the most popular frontend frameworks like React, Vue.js, and 
     Next.js, along with backend technologies like Node.js, Spring Boot, and more.
   `,
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://thecodersguilde.com',
+  siteUrl: 'https://laguildedescodeurs.vercel.app/',
   siteRepo: 'https://github.com/Nganda-Ryan/blog',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo-git-avatar.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
