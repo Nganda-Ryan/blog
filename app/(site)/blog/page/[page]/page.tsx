@@ -2,8 +2,6 @@ import ListLayout from '@/layouts/ListLayoutWithTags'
 import { getPostsWithCount } from './../../../../../sanity/sanity-utils'
 import { config } from 'utils/config'
 
-export const revalidate = 60;
-
 
 export const generateStaticParams = async () => {
   const postList = await getPostsWithCount();
@@ -30,3 +28,6 @@ export default async function Page(props: { params: Promise<{ page: string }> })
     />
   )
 }
+
+
+export const revalidate = parseInt(process.env.NEXT_PUBLIC_POSTS_REVALIDATION_TIME || '3600', 10);

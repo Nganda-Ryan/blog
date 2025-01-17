@@ -34,3 +34,5 @@ export default async function Page() {
     </>
   )
 }
+
+export const revalidate = parseInt(process.env.NEXT_PUBLIC_ABOUT_REVALIDATION_TIME || '86400', 10); //2 weeks revalidation

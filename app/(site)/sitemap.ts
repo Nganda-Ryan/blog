@@ -22,3 +22,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [...routes, ...blogRoutes]
 }
+
+export const revalidate = parseInt(process.env.NEXT_PUBLIC_SITEMAP_REVALIDATION_TIME || '3600', 10);

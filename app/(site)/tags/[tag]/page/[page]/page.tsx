@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { getTags, getPostsByTagSlug } from './../../../../../../sanity/sanity-utils'
 import { config } from 'utils/config'
 
-export const revalidate = 60;
+
 
 
 export const generateStaticParams = async () => {
@@ -52,3 +52,6 @@ export default async function TagPage(props: { params: Promise<{ tag: string; pa
     />
   )
 }
+
+
+export const revalidate = parseInt(process.env.NEXT_PUBLIC_TAGS_REVALIDATION_TIME || '3600', 10);

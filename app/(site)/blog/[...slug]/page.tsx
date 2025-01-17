@@ -9,7 +9,7 @@ import { getPost, urlFor, getAllPosts } from './../../../../sanity/sanity-utils'
 import { PortableText } from '@portabletext/react'
 import PortableTextComponents from '@/components/sanity/PortableTextComponents'
 
-export const revalidate = 60;
+
 
 
 export async function generateMetadata(props: {
@@ -110,3 +110,5 @@ export default async function Page(props: { params: Promise<{ slug: string[] }> 
     </>
   )
 }
+
+export const revalidate = parseInt(process.env.NEXT_PUBLIC_POSTS_REVALIDATION_TIME || '3600', 10);

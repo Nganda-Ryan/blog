@@ -1,7 +1,7 @@
 export const dynamic = 'force-static';
 import { getAllPosts } from "./../../sanity/sanity-utils";
 
-export const revalidate = 60
+
 
 export async function GET() {
   const sanityPost = await getAllPosts();
@@ -21,3 +21,5 @@ export async function GET() {
 
   return Response.json(searchPosts)
 }
+
+export const revalidate = parseInt(process.env.NEXT_PUBLIC_SEARCH_REVALIDATION_TIME || '3600', 10)

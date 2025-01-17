@@ -94,3 +94,5 @@ export default function Home({ posts }: ListLayoutProps) {
     </>
   )
 }
+
+export const revalidate = parseInt(process.env.NEXT_PUBLIC_HOME_REVALIDATION_TIME || '3600', 10);
