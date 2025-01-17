@@ -9,6 +9,8 @@ import { getPost, urlFor, getAllPosts } from './../../../../sanity/sanity-utils'
 import { PortableText } from '@portabletext/react'
 import PortableTextComponents from '@/components/sanity/PortableTextComponents'
 
+export const revalidate = 60;
+export const dynamicParams = true;
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string[] }>
@@ -66,6 +68,7 @@ export const generateStaticParams = async () => {
 }
 
 export default async function Page(props: { params: Promise<{ slug: string[] }> }) {
+  
   const params = await props.params
   const slug = decodeURI(params.slug.join('/'));
   const sanityPost = await getPost(slug);

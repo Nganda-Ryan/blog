@@ -1,6 +1,8 @@
 export const dynamic = 'force-static';
 import { getAllPosts } from "./../../sanity/sanity-utils";
- 
+
+export const revalidate = 60
+
 export async function GET() {
   const sanityPost = await getAllPosts();
   const searchPosts = sanityPost.map(post => ({
