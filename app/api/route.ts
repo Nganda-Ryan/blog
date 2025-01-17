@@ -22,4 +22,4 @@ export async function GET() {
   return Response.json(searchPosts)
 }
 
-export const revalidate = parseInt(process.env.NEXT_PUBLIC_SEARCH_REVALIDATION_TIME || '3600', 10)
+export const revalidate = 86400

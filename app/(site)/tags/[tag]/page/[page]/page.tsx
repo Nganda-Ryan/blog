@@ -1,7 +1,7 @@
 import ListLayout from '@/layouts/ListLayoutWithTags'
 import { notFound } from 'next/navigation'
 import { getTags, getPostsByTagSlug } from './../../../../../../sanity/sanity-utils'
-import { config } from 'utils/config'
+import { config as blogConfig } from 'utils/config'
 
 
 
@@ -18,7 +18,7 @@ export const generateStaticParams = async () => {
   
   return Object.keys(tagCounts).flatMap((tag) => {
     const postCount = tagCounts[tag]
-    const totalPages = Math.ceil(postCount / config.POSTS_PER_PAGE)
+    const totalPages = Math.ceil(postCount / blogConfig.POSTS_PER_PAGE)
     return Array.from({ length: totalPages - 1 }, (_, i) => ({
       tag: encodeURI(tag),
       page: (i + 2).toString(),
@@ -30,10 +30,10 @@ export default async function TagPage(props: { params: Promise<{ tag: string; pa
   const params = await props.params
   const tag = decodeURI(params.tag)
   const pageNumber = parseInt(params.page);
-  const postList = await getPostsByTagSlug(tag, config.POSTS_PER_PAGE, pageNumber);
+  const postList = await getPostsByTagSlug(tag, blogConfig.POSTS_PER_PAGE, pageNumber);
   const title = tag[0].toUpperCase() + tag.split(' ').join('-').slice(1)
 
-  const totalPages = Math.ceil(postList.total / config.POSTS_PER_PAGE)
+  const totalPages = Math.ceil(postList.total / blogConfig.POSTS_PER_PAGE)
 
   // Return 404 for invalid page numbers or empty pages
   if (pageNumber <= 0 || pageNumber > totalPages || isNaN(pageNumber)) {
@@ -54,4 +54,4 @@ export default async function TagPage(props: { params: Promise<{ tag: string; pa
 }
 
 
-export const revalidate = parseInt(process.env.NEXT_PUBLIC_TAGS_REVALIDATION_TIME || '3600', 10);
+export const revalidate = 86400

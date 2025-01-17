@@ -23,4 +23,4 @@ export default async function BlogPage() {
   )
 }
 
-export const revalidate = parseInt(process.env.NEXT_PUBLIC_POSTS_REVALIDATION_TIME || '3600', 10);
+export const revalidate = 86400

@@ -30,4 +30,4 @@ export default async function Page(props: { params: Promise<{ page: string }> })
 }
 
 
-export const revalidate = parseInt(process.env.NEXT_PUBLIC_POSTS_REVALIDATION_TIME || '3600', 10);
+export const revalidate = 86400
