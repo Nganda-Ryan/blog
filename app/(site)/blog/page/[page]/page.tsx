@@ -3,7 +3,7 @@ import { getPostsWithCount } from './../../../../../sanity/sanity-utils'
 import { config } from 'utils/config'
 
 export const revalidate = 60;
-export const dynamicParams = true;
+
 
 export const generateStaticParams = async () => {
   const postList = await getPostsWithCount();

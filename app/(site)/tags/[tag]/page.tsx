@@ -9,7 +9,7 @@ import { config } from 'utils/config'
 
 
 export const revalidate = 60;
-export const dynamicParams = true;
+
 
 export async function generateMetadata(props: {
   params: Promise<{ tag: string }>

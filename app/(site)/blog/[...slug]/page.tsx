@@ -10,7 +10,7 @@ import { PortableText } from '@portabletext/react'
 import PortableTextComponents from '@/components/sanity/PortableTextComponents'
 
 export const revalidate = 60;
-export const dynamicParams = true;
+
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string[] }>
