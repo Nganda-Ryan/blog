@@ -12,7 +12,7 @@ const SanityImage = ({ value }: { value: any }) => {
                 alt={imageAlt} 
                 width={500}
                 height={500}
-                className='w-full max-w-xl mx-auto'
+                className='w-full lg:max-w-xl mx-auto'
             />
         </div>
     );
