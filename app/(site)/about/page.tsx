@@ -23,12 +23,15 @@ export default async function Page() {
     <>
       <AuthorLayout content={mainContent}>
         <div>
-          Software Engineer, Fullstack developer (React, Next.js, Vue.js, NestJS, Spring Boot) and Salesforce developerI'm the kind of 
-          person who sees a blank screen as a playground for creativity and challenges as puzzles waiting to be solved.
+          Ingénieur logiciel, développeur Fullstack (React, Next.js, Vue.js, NestJS, Spring Boot) et développeur Salesforce. Je suis le 
+          genre de personne qui considère un écran vierge comme une aire de jeu pour la créativité, et les défis comme des énigmes à 
+          résoudre.
           <br />
-          But hey, life isn't all code. When I'm not crafting clean, collaborative solutions, you'll find me sharing knowledge or 
-          rocking out on my guitar or indulging in waffles (the official fuel for brilliance, trust me). I bring a mix of creativity, 
-          professionalism, and a touch of humor to deliver solutions that truly solve problems and make an impact.
+          <br />
+          Mais la vie n'est pas faite que de code. Lorsque je ne suis pas en train d'élaborer des solutions propres et collaboratives, 
+          vous me trouverez en train de partager des connaissances, de jouer de la guitare ou de manger des gaufres (le carburant 
+          officiel de la brillance, croyez-moi). J'apporte un mélange de créativité, de professionnalisme et une touche d'humour pour 
+          fournir des solutions qui résolvent vraiment les problèmes et qui ont un impact.
         </div>
       </AuthorLayout>
     </>
