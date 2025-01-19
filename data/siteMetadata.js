@@ -7,23 +7,23 @@ const siteMetadata = {
     Explore tutorials, tips, and updates on web development, covering the most popular frontend frameworks like React, Vue.js, and 
     Next.js, along with backend technologies like Node.js, Spring Boot, and more.
   `,
-  language: 'en-us',
+  language: 'fr',
   theme: 'system', // system, dark or light
   siteUrl: 'https://laguildedescodeurs.vercel.app/',
   siteRepo: 'https://github.com/Nganda-Ryan/blog',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo-git-avatar.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
   email: 'steveloicnganda@gmail.com',
-  github: 'https://github.com',
-  x: 'https://x.com/',
+  github: 'https://github.com/Nganda-Ryan',//'https://github.com',
+  x: 'https://x.com/OnanaRyan',//'https://x.com/',
   facebook: 'https://facebook.com',
   youtube: 'https://youtube.com',
-  linkedin: 'https://www.linkedin.com',
+  linkedin: 'https://www.linkedin.com/in/nganda-onana-steve-lo%C3%AFc-221105344',//'https://www.linkedin.com',
   threads: 'https://www.threads.net',
   instagram: 'https://www.instagram.com',
   medium: 'https://medium.com',
   bluesky: 'https://bsky.app/',
-  locale: 'en-US',
+  locale: 'fr-FR',
   // set to true if you want a navbar fixed to the top
   stickyNav: true,
   analytics: {
