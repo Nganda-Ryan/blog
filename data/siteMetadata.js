@@ -4,12 +4,11 @@ const siteMetadata = {
   author: 'NGANDA Steve',
   headerTitle: 'GuiDeCo',
   description: `
-    Explore tutorials, tips, and updates on web development, covering the most popular frontend frameworks like React, Vue.js, and 
-    Next.js, along with backend technologies like Node.js, Spring Boot, and more.
+    Découvrez des tutoriels, des conseils et des mises à jour sur le développement web, couvrant les frameworks frontaux les plus populaires tels que React, Vue.js et Next.js, ainsi que des technologies backend telles que Node.js, Spring Boot, et bien plus encore.
   `,
   language: 'fr',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://laguildedescodeurs.vercel.app/',
+  siteUrl: 'https://https://www.laguildedescodeurs.com',
   siteRepo: 'https://github.com/Nganda-Ryan/blog',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo-git-avatar.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
