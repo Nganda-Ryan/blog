@@ -8,7 +8,7 @@ const siteMetadata = {
   `,
   language: 'fr',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://https://www.laguildedescodeurs.com',
+  siteUrl: 'laguildedescodeurs.com',
   siteRepo: 'https://github.com/Nganda-Ryan/blog',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo-git-avatar.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
