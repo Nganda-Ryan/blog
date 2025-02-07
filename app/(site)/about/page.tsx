@@ -21,7 +21,7 @@ export default async function Page() {
 
   return (
     <>
-      <AuthorLayout content={mainContent} children={undefined}>
+      <AuthorLayout content={mainContent}>
         <div>
           Ingénieur logiciel, développeur Fullstack (React, Next.js, Vue.js, NestJS, Spring Boot) et développeur Salesforce. Je suis le 
           genre de personne qui considère un écran vierge comme une aire de jeu pour la créativité, et les défis comme des énigmes à 
