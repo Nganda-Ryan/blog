@@ -2,7 +2,7 @@ import AuthorLayout from '@/layouts/AuthorLayout'
 import { genPageMetadata } from '../seo'
 import { getAuthorList, urlFor } from '../../../sanity/sanity-utils';
 
-export const metadata = genPageMetadata({ title: 'About' })
+export const metadata = genPageMetadata({ title: 'A propos' })
 
 export default async function Page() {
   const authorList = await getAuthorList();
@@ -21,7 +21,7 @@ export default async function Page() {
 
   return (
     <>
-      <AuthorLayout content={mainContent}>
+      <AuthorLayout content={mainContent} children={undefined}>
         <div>
           Ingénieur logiciel, développeur Fullstack (React, Next.js, Vue.js, NestJS, Spring Boot) et développeur Salesforce. Je suis le 
           genre de personne qui considère un écran vierge comme une aire de jeu pour la créativité, et les défis comme des énigmes à 

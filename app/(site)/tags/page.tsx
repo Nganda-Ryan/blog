@@ -4,7 +4,7 @@ import { genPageMetadata } from '../seo'
 import { getTags } from './../../../sanity/sanity-utils'
 
 
-export const metadata = genPageMetadata({ title: 'Tags', description: 'Things I blog about' })
+export const metadata = genPageMetadata({ title: 'Tags', description: 'Choses sur lesquelles je blogue' })
 
 export default async function Page() {
   const tagList = await getTags();
