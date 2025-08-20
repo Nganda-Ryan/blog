@@ -1,6 +1,7 @@
 import AuthorLayout from '@/layouts/AuthorLayout'
 import { genPageMetadata } from '../seo'
 import { getAuthorList, urlFor } from '../../../sanity/sanity-utils';
+import Particule from '@/components/animations/Particule';
 
 export const metadata = genPageMetadata({ title: 'A propos' })
 

@@ -4,7 +4,7 @@ const siteMetadata = {
   author: 'NGANDA Steve',
   headerTitle: 'GuiDeCo',
   description: `
-    Découvrez des tutoriels, des conseils et des mises à jour sur le développement web, couvrant les frameworks frontaux les plus populaires tels que React, Vue.js et Next.js, ainsi que des technologies backend telles que Node.js, Spring Boot, et bien plus encore.
+    Hey Moi c'est NGANDA ONANA Steve Loic !Découvrez des tutoriels, des conseils et des mises à jour sur le développement web, couvrant les frameworks frontaux les plus populaires tels que React, Vue.js et Next.js, ainsi que des technologies backend telles que Node.js, Spring Boot, et bien plus encore.
   `,
   language: 'fr',
   theme: 'system', // system, dark or light

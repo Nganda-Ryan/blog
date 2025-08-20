@@ -1,96 +1,75 @@
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
+import Image from 'next/image'
 import { formatDate } from 'pliny/utils/formatDate'
 import { Post } from 'sanity/sanity.types'
+import { Calendar, Eye, ArrowRight } from 'lucide-react'
+import ArticleCard from '@/components/ArticleCard'
 
-const MAX_DISPLAY = 5
+const MAX_DISPLAY = 6
 interface ListLayoutProps {
-  posts: Post[];
+  posts: Post[]
 }
-
 
 export default function Home({ posts }: ListLayoutProps) {
   return (
     <>
-      <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-            Latest
-          </h1>
-          <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            {/* {siteMetadata.description} */}
-          </p>
+      <div className="pb-12 pt-6">
+        {/* Header avec design moderne */}
+        <div className="relative overflow-hidden rounded-3xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl shadow-2xl mx-4 mb-12 border border-white/20 -z-80">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-pink-600/10"></div>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
+          
+          <div className="relative px-8 py-6 text-center">
+            <h1 className="text-3xl font-extrabold tracking-tight 
+                           text-gray-900 dark:text-gray-100 sm:text-5xl
+                           bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 
+                           dark:from-white dark:via-blue-100 dark:to-purple-100 
+                           bg-clip-text text-transparent mb-4">
+              Latest Posts
+            </h1>
+            
+            <div className="flex justify-center mb-6">
+              <div className="h-2 w-24 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full shadow-lg"></div>
+            </div>
+            
+            <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              Découvrez nos derniers articles inspirants
+            </p>
+          </div>
         </div>
-        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+
+        {/* Liste des posts */}
+        <ul className="grid gap-8">
           {(!posts || !posts.length) && 'No posts found.'}
-          {posts && posts.slice(0, MAX_DISPLAY).map((post, index) => {
-            // const { slug, date, title, summary, tags } = post
-            const { publishedAt, title, slug, tags, description } = post
-            return (
-              <li key={index} className="py-12">
-                <article>
-                  <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-                    <dl>
-                      <dt className="sr-only">Published on</dt>
-                      <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                        <time dateTime={publishedAt} suppressHydrationWarning>
-                          {formatDate(publishedAt!, siteMetadata.locale)}
-                        </time>
-                      </dd>
-                    </dl>
-                    <div className="space-y-5 xl:col-span-3">
-                      <div className="space-y-6">
-                        <div>
-                          <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                            <Link
-                              href={`/blog/${slug?.current}`}
-                              className="text-gray-900 dark:text-gray-100"
-                            >
-                              {title}
-                            </Link>
-                          </h2>
-                          <div className="flex flex-wrap">
-                            {tags?.map((tag, index2) => <Tag key={index2} text={tag.title!} />)}
-                          </div>
-                        </div>
-                        <div className="prose max-w-none text-gray-500 dark:text-gray-200 line-clamp-4">
-                          {description}
-                        </div>
-                      </div>
-                      <div className="text-base font-medium leading-6">
-                        <Link
-                          href={`/blog/${slug?.current}`}
-                          className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-                          aria-label={`Read more: "${title}"`}
-                        >
-                          Read more &rarr;
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              </li>
-            )
-          })}
+          {posts &&
+            posts.slice(0, MAX_DISPLAY).map((post, index) => {
+              return (
+                <li key={index} className="h-full">
+                  <ArticleCard post={post} />
+                </li>
+              )
+            })}
         </ul>
       </div>
+
+      {/* Lien vers tous les posts */}
       {posts.length > MAX_DISPLAY && (
-        <div className="flex justify-end text-base font-medium leading-6">
-          <Link
-            href="/blog"
-            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-            aria-label="All posts"
-          >
-            All Posts &rarr;
-          </Link>
+        <div className="flex justify-center pt-8">
+          <div className="inline-block relative group">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
+            <Link
+              href="/blog"
+              className="relative inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300"
+              aria-label="All posts"
+            >
+              <span>Voir tous les articles</span>
+              <ArrowRight className="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-300" />
+            </Link>
+          </div>
         </div>
       )}
-      {/* {siteMetadata.newsletter?.provider && (
-        <div className="flex items-center justify-center pt-4">
-          <NewsletterForm />
-        </div>
-      )} */}
     </>
   )
 }

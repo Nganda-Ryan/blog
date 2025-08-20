@@ -10,6 +10,7 @@ import Footer from '@/components/Footer'
 import siteMetadata from '@/data/siteMetadata'
 import { ThemeProviders } from './theme-providers'
 import { Metadata } from 'next'
+import { AnimatedBackground } from '@/components/animations/AnimatedBackground'
 
 const space_grotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -100,7 +101,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SectionContainer>
             <SearchProvider searchConfig={config as SearchConfig}>
               <Header />
-              <main className="mb-auto">{children}</main>
+                <AnimatedBackground />
+                <main className="mb-auto">{children}</main>
+                <div className="fixed top-1/4 left-8 w-4 h-4 bg-blue-500/20 rounded-full animate-bounce" style={{animationDelay: '0s'}}></div>
+                <div className="fixed top-1/3 right-12 w-3 h-3 bg-purple-500/20 rounded-full animate-bounce" style={{animationDelay: '1s'}}></div>
+                <div className="fixed bottom-1/4 left-16 w-2 h-2 bg-pink-500/20 rounded-full animate-bounce" style={{animationDelay: '2s'}}></div>
+                <div className="fixed bottom-1/3 right-8 w-5 h-5 bg-indigo-500/20 rounded-full animate-bounce" style={{animationDelay: '0.5s'}}></div>
             </SearchProvider>
             <Footer />
           </SectionContainer>
